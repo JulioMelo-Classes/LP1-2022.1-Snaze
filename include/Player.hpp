@@ -5,11 +5,11 @@ class Player{
     private:
         /*priv*/
     public:
-        void solve();
+        void find_solution(/*args?*/);
         /**
          * Retorna a próxima ação do jogador um mapeamento de 0-3, representando ir para esquerda, cima, direita, baixo
          * @return a próxima ação do jogador
          **/
-        int nextAction();
+        int next_move();
 };
 #endif //Player_hpp

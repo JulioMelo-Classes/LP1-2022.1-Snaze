@@ -29,7 +29,7 @@ void SnakeGame::initialize_game(){
             lineCount++;
         }
     }
-    m_state = WAITING_USER;
+    m_state = WAITING_USER; //estado inicial é WAITING_USER, mas poderia ser outro
     m_ia_player = Player();
 }
 
@@ -45,7 +45,8 @@ void SnakeGame::process_actions(){
             cin>>std::ws>>m_choice;
             break;
         case WAITING_IA:
-            m_action = m_ia_player.nextAction();
+            m_action = m_ia_player.next_move();
+            break;
         default:
             //nada pra fazer aqui
             break;
@@ -125,6 +126,7 @@ void SnakeGame::game_over(){
 }
 
 void SnakeGame::loop(){
+    render(); //chama um render para a interface inicial
     while(m_state != GAME_OVER){
         process_actions();
         update();
