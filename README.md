@@ -4,13 +4,17 @@
 # LP1 Projeto 3 - Snaze
 
 ### Sumário
-1. [Introdução](#1-introdução)
-2. [Background](#2-background)
-3. [Entradas](#3-entradas)
-4. [Interface](#4-interface)
-5. [Modelagem do Problema](#5-modelagem-do-problema)
-6. [Dados para testes](#6-dados-para-testes)
-7. [Método de Testes](#7-método-de-testes)
+1. [Introdução](#1introdução)
+2. [Sobre o Jogo](#2sobre-o-jogo)
+3. [O Problema](#3o-problema)
+4. [Entrada](#4entrada)
+5. [Saída](#5saída)
+6. [Implementação](#6implementação)
+7. [Algoritmo de Backtracking](#7algoritmo-backtracking)
+8. [Pacmaze](#8pacmaze-uma-versão-mais-simples-do-problema)
+9. [Problemas da Cauda 1](#9os-problemas-da-cauda---1)
+10. [Problemas da Cauda 2](#10os-problemas-da-cauda---2)
+11. [Interface](#11interface)
 
 
 # 1.Introdução 
@@ -29,7 +33,7 @@ A Figura 1 mostra a tela inicial para o jogo **Snaze**, e a Figura 2 mostra a re
 | <p align="center"> Figura 1 </p> | <p align="center">Figura 2</p> |
 
 
-## Sobre o Jogo
+## 2.Sobre o Jogo
 
 As regras do jogo são:
 1. A cobra tem *5* vidas
@@ -42,7 +46,7 @@ As regras do jogo são:
 7. A cobra **ganha** a simulação do jogo se comer todos a comida disponível em todos os níveis.
     1. Após ganhar a simulação o programa finaliza.
 
-## O Problema
+## 3.O Problema
 
 Para cada iteração de simulação, o programa sempre fará o seguinte:
 
@@ -59,7 +63,7 @@ Por controle aleatório entende-se que o motor de IA define uma direção de mov
 
 Seu programa deve receber um argumento via linha de comando com o nome de um arquivo que contém a informação sobre a configuração dos níveis de jogo. A saída do programa deve ser a animação (i.e. uma sequência de telas) da cobra movimentando-se de acordo com o motor de IA.
 
-## Entrada
+## 4.Entrada
 
 A entrada para a simulação do jogo **Snaze** será sempre um arquivo. A primeira linha do arquivo deve conter 3 inteiros positivos não-nulos: o número de linhas e o número de colunas do "grid" do labirinto daquele nível; seguido pela quantidade de vezes que as comidas serão geradas naquele mapa. Esses valores serão separados por um ou mais espaços em branco. Se algum desses valores for menor ou igual a zero, o programa deve encerrar com uma mensagem de erro. Um nível será sempre representado por um grid retangular.
 
@@ -109,7 +113,7 @@ Note que um arquivo de entrada deve ter uma sequência de um ou mais níveis, ca
 ```
 <p align="center"> Exemplo 1. Arquivo de entrada </p>
 
-## Saída
+## 5.Saída
 
 Sua simulação deve produzir uma sequência de representação de nível (como na Figura 1), mostrando a localização da cobra dentro do labirinto, bem como as paredes e a comida. Isso é feito para cada iteração de simulação. Observe que a tela também deve exibir o status do jogo, como, por exemplo, o número de vidas da cobra, a pontuação, e o número de comidas que ainda faltam para o fim do nível atual do jogo.
 
@@ -117,7 +121,7 @@ Cada vez que a cobra se choca com algo, sua simulação deve imprimir uma mensag
 
 Caso a vida da cobra acabe, a simulação deve exibir uma mensagem e encerrar a simulação. Da mesma forma, se a cobra passar por todos os níveis, a simulação deve exibir uma mensagem de avisando que não existem mais níveis e também encerrar a simulação. Ao encerrar a simulação, o programa deve sempre perguntar ao usuário se ele quer reiniciar a simulação ou se quer encerrar o programa.
 
-## Implementação
+## 6.Implementação
 
 O próximo passo em direção a uma solução de programação, após entender claramente o problema, como as suas especificações de entrada e saída, é modelar as entidades de simulação do **Snaze**.
 
@@ -130,7 +134,7 @@ Logo abaixo pode-se verificar uma lista de classes que podem ser úteis para mod
     2. `int next_move(...)`: retorna uma direção para a cobra com base na sequência de direções encontradas e armazenadas pelo motor de IA ou em uma política aleatória (conforme descrito na Seção~\ref{sec:problem}).
 4. `SnakeGame`: a entidade principal que instancia todos os outros objetos e gerencia a execução do jogo. Esta classe deve fornecer métodos, tais como `initialize_game()`, `update()`, `process_events()`, `render()`, `game_over()`, que são chamados no *loop* do jogo. Um bom template para organização da arquitetura do jogo é [Game Loop Pattern](http://gameprogrammingpatterns.com/game-loop.html), porém fique à vontade para escolher o modelo que funcione melhor.
 
-## Algoritmo Backtracking
+## 7.Algoritmo Backtracking
 
 Para construir a solução da simulação do jogo é recomendado usar a estratégia *backtracking*, que pode ser descrita **recursivamente** como mostrado à seguir:
 
@@ -178,7 +182,7 @@ O algoritmo recurisvo à cima é uma solução _bread'n butter_ (feijão com arr
 
 Ao usar os qualquer um dos dois algoritmos, não se esqueça de usar uma estrutura de dados para armazenar **a sequência de decisões** que levam à localização que está sendo testada no Passo *2* (ou nos locais comentados no caso do algoritmo recursivo). No entanto, lembre-se também que sempre que encontrar uma situação sem solução (`dead end`), você deve ignorar as direções que levam àquele dead end e retomar a busca por uma direção ainda não testada.
 
-## Pacmaze: uma versão mais simples do problema
+## 8.Pacmaze: uma versão mais simples do problema
 
 Uma versão inicial e muito boa para iniciar os trabalhos neste problema é o **Pacmaze**. O Pacmaze é uma versão do Snaze em que algumas restrições são removidas:
 1. O pacman pode decidir virar para qualquer direção, diferente do snaze, onde a direção da "cauda" da cobrinha é bloqueada.
@@ -213,7 +217,7 @@ Veja que a decisão mostra a direção que a AI calculou dada a posição atual 
 
 Isso quer dizer que o pacman já decidiu o caminho antes de começar a fazê-lo e não durante, essa observação é importante para que você entenda como a AI proposta neste trabalho deve funcionar. Como não temos elementos outros elementos que se movem no mapa, podemos pré calcular um conjunto de decisões que resolve o problema ao invés de *calcular à cada frame* como seria feito se fosse o jogo do pacman convencional (pois os fantasmas se movem).
 
-## Os problemas da Cauda - 1
+## 9.Os problemas da Cauda - 1
 
 O **Pacmaze** é um importante passo para a solução do problema, mas quando consideramos o verdadeiro **Snaze** temos que lidar com o único, e talvez mais perigoso, inimigo da Snake no mapa, sua própria cauda.
 
@@ -233,7 +237,7 @@ Considere o cenário ilustrado abaixo no Exemplo 3, no qual tem-se uma cobra com
 4 |   |   |   | F |
   +---+---+---+---+
 
-  V - Cabeça da cobra em direção norte.
+  V - Cabeça da cobra em direção "cima".
   o - Corpo da cobra.
   F - Comida.
   # - Parede.
@@ -260,7 +264,7 @@ Em um cenário real, o corpo da cobra deve estar junto da cabeça, a menos que a
 4 |   |   |   | F |
   +---+---+---+---+
 
-  V - Cabeça da cobra em direção oeste.
+  > - Cabeça da cobra em direção "esquerda".
   o - Corpo da cobra.
   F - Comida.
   # - Parede.
@@ -276,7 +280,7 @@ Considerando a situação acima descrita, os problemas que você deve resolver s
 
 **Nota:** A transição do **Pacmaze** para o **Snaze** é suave se você iniciar resolvendo o primeiro sem obrigatoriamente pensar no segundo. Tente sempre pensar sobre o que eu preciso modificar nos algoritmos usados no **Pacmaze** para resolver os novos problemas.
 
-## O problemas da Cauda - 2
+## 10.Os problemas da Cauda - 2
 
 Ter cauda é realmente um problema, observe o Exemplo 5 abaixo:
 
@@ -294,7 +298,7 @@ Ter cauda é realmente um problema, observe o Exemplo 5 abaixo:
 4 |   | o | o | F |
   +---+---+---+---+
 
-  V - Cabeça da cobra em direção oeste.
+  V - Cabeça da cobra na direção "cima".
   o - Corpo da cobra.
   F - Comida.
   # - Parede.
@@ -312,9 +316,9 @@ Considerando a situação acima descrita, o *outros* problema que você deve res
 1. *Como monitorar as posições que já foram visitadas pela cobra, de forma a poder lidar com ciclos no mapa?* Em ambos os caminhos listados, a posição $(2,1)$ já foi visitada, mas levará à solução, no entanto, existe alguma diferença entre a primeira e segunda vez?
 2. *Após resolvido o problema 1, como será a nova condição de parada dos algoritmos?* Após resolver a primeira parte, você poderá se pergunta rsobre como os algoritmos de achar caminho vão funcionar, é preciso mudar alguma coisa neles?
 
-**Nota:** Este é um dos problemas mais dificeis relacionado à este trabalho que você precisa resolver para obter a nota máxima!
+**Nota:** Este é um dos problemas mais dificeis relacionado à este trabalho!
 
-## Interface
+## 11.Interface
 
 O programa deve ser chamado *snaze*, e deve receber o arquivo de entrada por meio de argumentos de linha de comando. Veja abaixo um exemplo da interface do programa:
 
