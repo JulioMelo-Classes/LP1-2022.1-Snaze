@@ -1,8 +1,9 @@
-#ifndef SnakeGame_h
-#define SnakeGame_h
+#ifndef SnakeGame_hpp
+#define SnakeGame_hpp
 #include <iostream>
 #include <vector>
 
+#include "Player.hpp"
 
 class SnakeGame{
     public:
@@ -12,21 +13,24 @@ class SnakeGame{
         enum GameStates{
             RUNNING, //<! quando o jogo está executando o estado é RUNNING
             GAME_OVER, //<! quando o jogo deve terminar o estado é GAME_OVER
-            WAITING_USER //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
+            WAITING_USER, //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
+            WAITING_IA //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
         };
 
     private:
         //<! atributos adicione outros se quiser
-        std::vector<std::string> maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
-        int frameCount; //<! contador de frames, usado apenas como exemplo
-        std::string choice; //<! usado na função process_actions para guardar a escolha do usuário
-        GameStates state; //<! guarda o estado do jogo
-
+        std::vector<std::string> m_maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
+        int m_frameCount; //<! contador de frames, usado apenas como exemplo
+        std::string m_choice; //<! usado na função process_actions para guardar a escolha do usuário
+        GameStates m_state; //<! guarda o estado do jogo
+        std::string m_levels_file; //<! arquivo com os níveis do jogo
+        Player m_ia_player; //<! instancia da classe Player responsável pela IA do jogo
+        int m_action; //<! Representa a ação escolhida pela IA
     public:
         /**
         * @brief construtor padrão, fique à vontade para adicionar parâmetros se desejar
         **/
-        SnakeGame();
+        SnakeGame(std::string levels);
 
         /**
         * @brief chamado no main, este loop executa o jogo indefinidamente até que o usuário escolha terminar!
@@ -60,4 +64,4 @@ class SnakeGame{
         void game_over();
 };
 
-#endif //SnakeGame_h
+#endif //SnakeGame_hpp

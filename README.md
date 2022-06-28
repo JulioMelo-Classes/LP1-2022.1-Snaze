@@ -24,13 +24,6 @@ Para completar a tarefa você deve dominar suas habilidades de resolução de pr
 
 A Figura 1 mostra a tela inicial para o jogo **Snaze**, e a Figura 2 mostra a representação textual de um nível do jogo sendo jogado, no qual é possível identificar a comida (uma maçã), e a cobra movendo-se na direção norte.
 
-
-<style>
-td, th {
-   border: none!important;
-   align: "center";
-}
-</style>
 | ![Screen](./pics/screen.png)  | ![Tela](./pics/tela_inicial.png) |
 |:---:|:---|
 | <p align="center"> Figura 1 </p> | <p align="center">Figura 2</p> |
@@ -195,7 +188,7 @@ O restante da implementação do **Pacmaze** é igual a implementação do **Sna
 
 Uma consideração interessante sobre o pacmaze é que devido às regras do jogo o pacmaze nunca morre. Não existe, pela especificação, forma de perder o jogo neste modo, assim mesmo a IA simples que toma decisões que não fazem o Pacman se chocar com a parede, sem levar em conta a posição da comida, irão permitir que o jogo execute do inicio ao fim sem game over.
 
-Sugestão: Usando essa versão do problema você pode debugar o backtracking para verificar se o caminho encontrado leva até a comida, para fazer isso ao processar o caminho que leva até a comida, imprima no mapa as decisões tomadas dado que o Pacman chega naquela posição como no Exemplo 2 abaixo.
+**Sugestão:** Usando essa versão do problema você pode debugar o backtracking para verificar se o caminho encontrado leva até a comida, para fazer isso ao processar o caminho que leva até a comida, imprima no mapa as decisões tomadas dado que o Pacman chega naquela posição como no Exemplo 2 abaixo.
 
 ```
 #####............#####
@@ -325,8 +318,19 @@ Considerando a situação acima descrita, o *outros* problema que você deve res
 
 O programa deve ser chamado *snaze*, e deve receber o arquivo de entrada por meio de argumentos de linha de comando. Veja abaixo um exemplo da interface do programa:
 
-```sh
-$ ./snaze level_easy.dat -p -randomWalk
+```
+$ ./snaze
+Usage: ./snaze <level_file> -mode [snaze|pacmaze] -ia [random|find]
+  onde <level_file> é um arquivo txt contendo a descrição dos níveis no formato especificado neste documento
+       -mode [snaze|pacmaze] representa o modo do jogo, sendo possíveis dois valores snaze ou pacmaze
+       -ia [random|find] representa o modo da ia do jogo, sendo possível: "random" onde a classe player apenas escolhe decisões aleatorias, possívelmente não letais para a Snake/Pacman; ou "find" onde a classe player decide um caminho possível para a comida.
+       -d por fim o programa pode receber o argumento -d, que sinaliza à interface para exibir as decisões calculadas pela classe player. Esse argumento é opcional.
 ```
 
-No exemplo acima, o programa lê as informações de nível a partir do arquivo \texttt{level\_easy.dat} (ver \autoref{lst:entrada}) que é usado para configurar o jogo e os níveis.
+Ao receber os argumentos o programa deve executar automaticamente indo para a tela inicial, que mostra o mapa atualmente carregado, a quantidade de vidas e uma mensagem pedindo para o usário pressionar alguma tecla para iniciar.
+
+Após pressionada uma tecla o programa inicia com a simulação até que ocorra um gameover ou que o nível atual termine. Dos quais podem ocorrer:
+- Se ocorreu um gameover, o programa deve pergutnar se o usuário quer recomeçar o mesmo mapa, reinicar do nível 1 ou sair do jogo. O usuário escolhe e a simulação continua (ou encerra).
+- Se o nível atual terminou (porquê acabaram as comidas), o programa deve pergutnar se o usuário quer recomeçar o mesmo mapa, passar para o próximo nível ou sair do jogo. O usuário escolhe e a simulação continua (ou encerra).
+
+Ao terminar o último mapa, o jogo deve considerar que ocorreu um game over, por isso as perguntas são as mesmas relativas ao game over.
