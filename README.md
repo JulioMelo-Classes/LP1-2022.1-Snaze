@@ -334,7 +334,6 @@ Usage: ./snaze <level_file> -mode [snaze|pacmaze] -ia [random|find]
 Ao receber os argumentos o programa deve executar automaticamente indo para a tela inicial, que mostra o mapa atualmente carregado, a quantidade de vidas e uma mensagem pedindo para o usário pressionar alguma tecla para iniciar.
 
 Após pressionada uma tecla o programa inicia com a simulação até que ocorra um gameover ou que o nível atual termine. Dos quais podem ocorrer:
-- Se ocorreu um gameover, o programa deve pergutnar se o usuário quer recomeçar o mesmo mapa, reinicar do nível 1 ou sair do jogo. O usuário escolhe e a simulação continua (ou encerra).
+- Se ocorreu um game over, o programa deve perguntar se o usuário quer recomeçar o mesmo mapa, reiniciar do nível 1 ou sair do jogo. O usuário escolhe e a simulação continua (ou encerra).
 - Se o nível atual terminou (porquê acabaram as comidas), o programa deve pergutnar se o usuário quer recomeçar o mesmo mapa, passar para o próximo nível ou sair do jogo. O usuário escolhe e a simulação continua (ou encerra).
-
-Ao terminar o último mapa, o jogo deve considerar que ocorreu um game over, por isso as perguntas são as mesmas relativas ao game over.
+- Ao terminar o último mapa, o jogo deve considerar que ocorreu um game over, por isso as perguntas são as mesmas relativas ao game over.
