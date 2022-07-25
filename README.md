@@ -117,9 +117,7 @@ Note que um arquivo de entrada deve ter uma sequência de um ou mais níveis, ca
 
 Sua simulação deve produzir uma sequência de representação de nível (como na Figura 1), mostrando a localização da cobra dentro do labirinto, bem como as paredes e a comida. Isso é feito para cada iteração de simulação. Observe que a tela também deve exibir o status do jogo, como, por exemplo, o número de vidas da cobra, a pontuação, e o número de comidas que ainda faltam para o fim do nível atual do jogo.
 
-Cada vez que a cobra se choca com algo, sua simulação deve imprimir uma mensagem adequada e perguntar se o usuário quer continuar ou não. Um nível é completado quando a quantidade de comida chega a 0 e a cobra come a última comida que foi colocada no mapa. Quando isso acontece, a simulação deve exibir uma mensagem correspondente e perguntar ao usuário se ele quer ir para o próximo nível (se houver), reiniciar aquele mesmo nível ou reiniciar do nível 1.
-
-Caso a vida da cobra acabe, a simulação deve exibir uma mensagem e encerrar a simulação. Da mesma forma, se a cobra passar por todos os níveis, a simulação deve exibir uma mensagem de avisando que não existem mais níveis e também encerrar a simulação. Ao encerrar a simulação, o programa deve sempre perguntar ao usuário se ele quer reiniciar a simulação ou se quer encerrar o programa.
+Cada vez que a cobra se choca com algo, sua simulação deve imprimir uma mensagem adequada e decremetar uma vida. Um nível é completado quando a quantidade de comida chega a 0 e a cobra come a última comida que foi colocada no mapa. Quando isso acontece, a simulação deve exibir uma mensagem correspondente ao fim do mapa e exibir as mensagens definidas na seção [Interface](#11interface), o mesmo caso as vidas da cobra acabem.
 
 ## 6.Implementação
 
